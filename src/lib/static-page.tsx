@@ -13,6 +13,7 @@ const PAGES: PageDef[] = [
   { slug: "private-therapy", title: "Private Therapy", description: "Personalised 1:1 trauma-informed therapy sessions." },
   { slug: "community-support", title: "Community Support", description: "Low-cost and free community wellbeing support." },
   { slug: "training", title: "Training", description: "Learn and certify in the award-winning AINT Model." },
+  { slug: "membership", title: "Membership", description: "AINT annual membership — £70 per year for affiliation, resources, and licensing pathway." },
   { slug: "aint-books", title: "Books", description: "Books by Dr Trish Avery on healing, resilience, and community care." },
   { slug: "collabs", title: "Collaborations & Awards", description: "Partners, awards, and press features for AINT Foundation CIC." },
   { slug: "booking", title: "Booking", description: "Choose the support that fits your needs today." },

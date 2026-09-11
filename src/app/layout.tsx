@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Outfit, Playfair_Display } from "next/font/google";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import SiteEffects from "../components/SiteEffects";
+import FloatingCallButton from "../components/FloatingCallButton";
 import "./globals.css";
 import "../styles/aint.css";
 
@@ -68,6 +69,7 @@ export default function RootLayout({
         <Header />
         <main className="site-main">{children}</main>
         <Footer />
+        <FloatingCallButton />
         <SiteEffects />
       </body>
     </html>

@@ -19,15 +19,15 @@
         ctaLabel: (resultKey) => {
           switch (resultKey) {
             case "sos":
-              return "Book SOS / Immediate Support";
+              return "Book Crisis-Prevention Session";
             case "couples":
-              return "Book Couples Therapy";
+              return "Book Couples AINT Session";
             case "children":
-              return "Book Children’s Hypnotherapy";
+              return "Book Hypnotherapy for Children";
             case "group":
-              return "Book Private Group Therapy";
+              return "Book Private Group Session";
             default:
-              return "Book Individual Therapy";
+              return "Book Private AINT Session";
           }
         },
         ctaHref: (resultKey) => {
@@ -105,27 +105,27 @@
           switch (resultKey) {
             case "sos":
               return {
-                title: "Recommended: SOS / Immediate Support",
+                title: "Recommended: Crisis-Prevention Session",
                 body: "Based on your answers, urgent support is likely the best fit right now. This option is designed for rapid stabilisation and grounding (not emergency services).",
               };
             case "couples":
               return {
-                title: "Recommended: Couples Therapy",
+                title: "Recommended: Couples AINT Session",
                 body: "Based on your answers, support as a couple may be the most helpful next step — focused on safety, communication, and repair.",
               };
             case "children":
               return {
-                title: "Recommended: Children’s Hypnotherapy",
-                body: "Based on your answers, children’s hypnotherapy is likely the most suitable option for child-focused support (confidence, anxiety, sleep, regulation).",
+                title: "Recommended: Hypnotherapy for Children",
+                body: "Based on your answers, hypnotherapy for children is likely the most suitable option for child-focused support (confidence, anxiety, sleep, regulation).",
               };
             case "group":
               return {
-                title: "Recommended: Private Group Therapy",
+                title: "Recommended: Private Group Session",
                 body: "Based on your answers, a small guided group may be the best fit — shared support with structure and facilitation.",
               };
             default:
               return {
-                title: "Recommended: Individual Therapy",
+                title: "Recommended: Private AINT Session",
                 body: "Based on your answers, one-to-one personalised support would be the best fit for your needs.",
               };
           }
@@ -187,13 +187,13 @@
           }
           if (resultKey === "free") {
             return {
-              title: "Recommended: Community Support (Group 1 — Free)",
-              body: "Based on your answers, you may be eligible for funded Community Group 1 sessions (free). Submit a request and we’ll match you based on availability.",
+              title: "Recommended: Community Session Group 1 — Free",
+              body: "Based on your answers, you may be eligible for funded Community Session Group 1 sessions (free). Submit a request and we’ll match you based on availability.",
             };
           }
           return {
-            title: "Recommended: Community Support (Group 2)",
-            body: "Based on your answers, Community Group 2 is likely the best fit (£20 first session, then £10). Submit a request and we’ll match you based on availability.",
+            title: "Recommended: Community Session Group 2",
+            body: "Based on your answers, Community Session Group 2 is likely the best fit (£20 first session, then £10). Submit a request and we’ll match you based on availability.",
           };
         },
         ctaLabel: (resultKey) => (resultKey === "private" ? "Explore Private Therapy" : "Request Community Support"),
@@ -226,8 +226,8 @@
             id: "time",
             question: "Which course sounds right?",
             options: [
-              { label: "Level 1 Early Awareness (£115 · 4 hours)", value: "foundation_time" },
-              { label: "Level 2 Practitioner (£135 · 4 hours)", value: "practitioner_time" },
+              { label: "Level 1 CPD Early-Help Awareness (£115)", value: "foundation_time" },
+              { label: "Level 2 Practitioner Training (£135 · 4 hours)", value: "practitioner_time" },
               { label: "Either works for me", value: "either" },
             ],
           },
@@ -243,12 +243,12 @@
           if (resultKey === "practitioner") {
             return {
               title: "Recommended: Level 2 Practitioner Training (£135)",
-              body: "Based on your answers, Level 2 Practitioner Training (4 hours CPD) is the best fit for developing practical AINT skills.",
+              body: "Based on your answers, AINT Level 2 Practitioner Training (4 hours) is the best fit for developing practical AINT skills.",
             };
           }
           return {
-            title: "Recommended: Level 1 Early-Help Awareness (£115)",
-            body: "Based on your answers, Level 1 Early Awareness Course (4 hours CPD) is the best fit — a clear introduction with immediate practical value.",
+            title: "Recommended: Level 1 CPD Early-Help Awareness (£115)",
+            body: "Based on your answers, AINT Level 1 CPD — Early-Help Awareness Course is the best fit — a clear introduction with immediate practical value.",
           };
         },
         ctaLabel: (resultKey) => {

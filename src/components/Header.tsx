@@ -65,6 +65,10 @@ export default function Header() {
                 <span className="header-btn-full">Free Call +44 3000 301309</span>
                 <span className="header-btn-short">Call</span>
               </a>
+              <Link className="header-btn header-btn-membership" href="/membership">
+                <span className="header-btn-full">Get Membership</span>
+                <span className="header-btn-short">Membership</span>
+              </Link>
               <Link className="header-btn header-btn-primary" href="/book-private">
                 Book a Session
               </Link>
@@ -118,6 +122,9 @@ export default function Header() {
           <a className="header-btn header-btn-accent" href="tel:+443000301309">
             Free Call +44 3000 301309
           </a>
+          <Link className="header-btn header-btn-membership" href="/membership" onClick={() => setMenuOpen(false)}>
+            Get Membership
+          </Link>
           <Link className="header-btn header-btn-primary" href="/book-private">
             Book a Session
           </Link>
