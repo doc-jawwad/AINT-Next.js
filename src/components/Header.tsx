@@ -50,7 +50,7 @@ export default function Header() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               className="logo-image"
-              src="https://aintfoundationcic.co.uk/wp-content/uploads/2026/05/AINT-Foundation-CIC-logo.webp"
+              src="/media/2026/05/AINT-Foundation-CIC-logo.webp"
               alt="AINT Foundation CIC logo"
             />
             <div>

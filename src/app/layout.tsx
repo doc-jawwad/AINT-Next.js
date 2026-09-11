@@ -61,7 +61,7 @@ export default function RootLayout({
         <link
           rel="preload"
           as="image"
-          href="https://aintfoundationcic.co.uk/wp-content/uploads/2026/05/Flowers-for-Hero-Section-of-AINT-Foundation-CIC-scaled.webp"
+          href="/media/2026/05/Flowers-for-Hero-Section-of-AINT-Foundation-CIC-scaled.webp"
         />
       </head>
       <body>

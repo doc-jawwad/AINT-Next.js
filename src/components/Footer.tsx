@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import NewsletterForm from "./NewsletterForm";
 
 const QUICK = [
   { label: "Pricing", href: "/#pricing" },
@@ -92,13 +93,13 @@ export default function Footer() {
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="https://aintfoundationcic.co.uk/wp-content/uploads/2026/05/UK-Business-Award-for-AINT-foundation.webp"
+                  src="/media/2026/05/UK-Business-Award-for-AINT-foundation.webp"
                   alt="UK Business Award"
                   style={{ height: 54, width: "auto", display: "block", borderRadius: 4 }}
                 />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="https://aintfoundationcic.co.uk/wp-content/uploads/2026/05/Global-Recognition-Award-AINT-Foundation-CIC.webp"
+                  src="/media/2026/05/Global-Recognition-Award-AINT-Foundation-CIC.webp"
                   alt="Global Recognition Award"
                   style={{ height: 54, width: "auto", display: "block", borderRadius: 4 }}
                 />
@@ -204,17 +205,7 @@ export default function Footer() {
           <div className="footer-signup-copy">
             <div className="footer-signup-title">Join our updates on training and wellbeing</div>
           </div>
-          <form
-            className="footer-signup-form"
-            action="#"
-            method="post"
-            style={{ display: "flex", gap: 8, flexWrap: "nowrap" }}
-            onSubmit={(e) => e.preventDefault()}
-          >
-            <label className="screen-reader-text" htmlFor="footerSignupEmail">Email address</label>
-            <input type="email" id="footerSignupEmail" name="footer_signup_email" placeholder="Your email address" style={{ flex: 1, minWidth: 0 }} />
-            <button type="submit" className="btn-p footer-signup-btn" style={{ flexShrink: 0 }}>Join</button>
-          </form>
+          <NewsletterForm />
         </div>
 
         <div className="footer-bottom">
