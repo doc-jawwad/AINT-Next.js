@@ -15,118 +15,189 @@
     const quizzes = {
       private: {
         title: "Private Therapy Decision Quiz",
-        subtitle: "A few quick questions to help you choose the most suitable session.",
+        subtitle: "A few quick questions to match you with the right session from our full offer.",
         ctaLabel: (resultKey) => {
           switch (resultKey) {
-            case "sos":
-              return "Book Crisis-Prevention Session";
+            case "crisis":
+              return "View Crisis-Prevention Sessions";
+            case "early_help":
+              return "View Early-Help Sessions";
             case "couples":
               return "Book Couples AINT Session";
             case "children":
               return "Book Hypnotherapy for Children";
             case "group":
-              return "Book Private Group Session";
+              return "View Group Options";
+            case "men":
+              return "View Men’s Mental Health";
+            case "trauma":
+              return "View Childhood Trauma Sessions";
+            case "dv_sa":
+              return "View DV/SA Support";
+            case "specialist":
+              return "View Specialist Support";
+            case "hypnotherapy":
+              return "View Hypnotherapy Services";
+            case "timed":
+              return "View Timed Exposure Cycle";
             default:
               return "Book Private AINT Session";
           }
         },
         ctaHref: (resultKey) => {
           switch (resultKey) {
-            case "sos":
-              return "/book-sos/";
+            case "crisis":
+              return "/private-therapy#crisis-early-help";
+            case "early_help":
+              return "/private-therapy#crisis-early-help";
             case "couples":
-              return "/book-couples/";
+              return "/private-therapy#core-sessions";
             case "children":
-              return "/book-children/";
+              return "/private-therapy#hypnotherapy";
             case "group":
-              return "/book-group/";
+              return "/private-therapy#group-programmes";
+            case "men":
+              return "/private-therapy#mens-mental-health";
+            case "trauma":
+              return "/private-therapy#childhood-trauma";
+            case "dv_sa":
+              return "/private-therapy#specialist-support";
+            case "specialist":
+              return "/private-therapy#specialist-support";
+            case "hypnotherapy":
+              return "/private-therapy#hypnotherapy";
+            case "timed":
+              return "/private-therapy#timed-exposure";
             default:
-              return "/book-individual/";
+              return "/private-therapy#core-sessions";
           }
         },
         steps: [
           {
-            id: "situation",
-            question: "What best describes your situation?",
-            options: [
-              { label: "I want support for myself", value: "self" },
-              { label: "I’m facing relationship challenges", value: "relationship" },
-              { label: "I feel overwhelmed and need urgent help", value: "urgent" },
-              { label: "I prefer shared/group support", value: "group" },
-              { label: "I am looking for support for a child", value: "child" },
-            ],
-          },
-          {
-            id: "speed",
-            question: "How quickly do you need support?",
-            options: [
-              { label: "As soon as possible", value: "asap" },
-              { label: "Within a few days", value: "days" },
-              { label: "I’m okay to wait", value: "wait" },
-            ],
-          },
-          {
-            id: "preference",
-            question: "What type of support do you prefer?",
-            options: [
-              { label: "One-to-one focused support", value: "one_to_one" },
-              { label: "Working together as a couple", value: "couple" },
-              { label: "Shared experience with others", value: "shared" },
-            ],
-          },
-          {
             id: "who",
             question: "Who is the support for?",
             options: [
-              { label: "Myself", value: "me" },
-              { label: "Myself and partner", value: "partner" },
-              { label: "A child", value: "child" },
+              { label: "Myself (adult)", value: "me" },
+              { label: "Myself and my partner / couple", value: "couple" },
+              { label: "A child (hypnotherapy only)", value: "child" },
+              { label: "Men’s-focused support", value: "men" },
+              { label: "A small group / programme", value: "group" },
+            ],
+          },
+          {
+            id: "need",
+            question: "What do you most need support with right now?",
+            options: [
+              { label: "General private therapy / emotional support", value: "general" },
+              { label: "Crisis, overwhelm, or urgent stabilisation", value: "crisis" },
+              { label: "Early help / getting steadier quickly", value: "early" },
+              { label: "Domestic violence or sexual abuse recovery", value: "dv_sa" },
+              { label: "Stress, anxiety, grief, or self-esteem", value: "specialist" },
+              { label: "Childhood trauma (as an adult)", value: "trauma" },
+              { label: "Starting therapy / feeling unsure about beginning", value: "starting" },
+              { label: "Hypnotherapy (adults / couples / trauma)", value: "hypno" },
+              { label: "AINT Timed Exposure Cycle", value: "timed" },
+            ],
+          },
+          {
+            id: "urgency",
+            question: "How urgently do you need support?",
+            options: [
+              { label: "As soon as possible / today", value: "asap" },
+              { label: "Within a few days", value: "soon" },
+              { label: "I’m okay to wait for the right fit", value: "wait" },
+            ],
+          },
+          {
+            id: "format",
+            question: "What format feels most comfortable?",
+            options: [
+              { label: "One-to-one private session", value: "one_to_one" },
+              { label: "Couples session", value: "couple" },
+              { label: "Shared group or multi-week programme", value: "shared" },
             ],
           },
         ],
         decide: (answers) => {
-          const situation = answers.situation;
-          const speed = answers.speed;
-          const preference = answers.preference;
           const who = answers.who;
+          const need = answers.need;
+          const urgency = answers.urgency;
+          const format = answers.format;
 
-          const urgencyHigh = situation === "urgent" || speed === "asap";
-          const isRelationship = situation === "relationship" || preference === "couple" || who === "partner";
-          const isChild = situation === "child" || who === "child";
-          const isGroup = situation === "group" || speed === "wait" || preference === "shared";
-
-          if (urgencyHigh) return "sos";
-          if (isRelationship) return "couples";
-          if (isChild) return "children";
-          if (isGroup) return "group";
+          if (who === "child") return "children";
+          if (need === "crisis" || urgency === "asap") return "crisis";
+          if (who === "men") return "men";
+          if (who === "couple" || format === "couple") return "couples";
+          if (who === "group" || format === "shared") return "group";
+          if (need === "dv_sa") return "dv_sa";
+          if (need === "trauma") return "trauma";
+          if (need === "early") return "early_help";
+          if (need === "specialist" || need === "starting") return "specialist";
+          if (need === "hypno") return "hypnotherapy";
+          if (need === "timed") return "timed";
           return "individual";
         },
         resultCopy: (resultKey) => {
           switch (resultKey) {
-            case "sos":
+            case "crisis":
               return {
-                title: "Recommended: Crisis-Prevention Session",
-                body: "Based on your answers, urgent support is likely the best fit right now. This option is designed for rapid stabilisation and grounding (not emergency services).",
+                title: "Recommended: Crisis-Prevention / Early-Help",
+                body: "Based on your answers, a Crisis-Prevention Session (£75 · 90 minutes) or Early-Help Stabilisation (£50 · 60 minutes) is likely the best fit for rapid, safe support (not emergency services).",
+              };
+            case "early_help":
+              return {
+                title: "Recommended: Early-Help Stabilisation Session",
+                body: "Based on your answers, Early-Help Stabilisation (£50 · 60 minutes) can help you feel safer and more regulated without waiting for a longer pathway.",
               };
             case "couples":
               return {
                 title: "Recommended: Couples AINT Session",
-                body: "Based on your answers, support as a couple may be the most helpful next step — focused on safety, communication, and repair.",
+                body: "Based on your answers, Couples AINT Session (£75 · 60 minutes) — or Hypnotherapy for Couples (£90) — is likely the most helpful next step.",
               };
             case "children":
               return {
                 title: "Recommended: Hypnotherapy for Children",
-                body: "Based on your answers, hypnotherapy for children is likely the most suitable option for child-focused support (confidence, anxiety, sleep, regulation).",
+                body: "Based on your answers, Hypnotherapy for Children (£60 · 45–60 minutes) is the suitable child-focused option. We do not offer counselling for children — only specialist hypnotherapy.",
               };
             case "group":
               return {
-                title: "Recommended: Private Group Session",
-                body: "Based on your answers, a small guided group may be the best fit — shared support with structure and facilitation.",
+                title: "Recommended: Group Session or Programme",
+                body: "Based on your answers, a Private Group Session (£10 per person) or a multi-week group programme (Emotional Regulation, Men’s Mental Health, or Trauma-Safe Communication) may be the best fit.",
+              };
+            case "men":
+              return {
+                title: "Recommended: Men’s Mental Health Sessions",
+                body: "Based on your answers, Men’s Early-Help (£50) or Men’s Crisis-Prevention (£75 · 90 minutes) is likely the most suitable pathway.",
+              };
+            case "trauma":
+              return {
+                title: "Recommended: Childhood Trauma Support",
+                body: "Based on your answers, Childhood Trauma Support (£50) or Trauma Exploration (£75 · 90 minutes) offers paced, dignity-first support for adults.",
+              };
+            case "dv_sa":
+              return {
+                title: "Recommended: Private DV/SA Support Session",
+                body: "Based on your answers, Private DV/SA Support (£50 · 60 minutes) provides safe, paced support for survivors of domestic violence and sexual abuse.",
+              };
+            case "specialist":
+              return {
+                title: "Recommended: Specialist Support Sessions",
+                body: "Based on your answers, Stress, Anxiety, Grief, Self-Esteem, or Starting Therapy Support sessions (£50 each) are likely the best fit.",
+              };
+            case "hypnotherapy":
+              return {
+                title: "Recommended: Hypnotherapy Services",
+                body: "Based on your answers, explore Hypnotherapy for Couples (£90) or Hypnotherapy for Trauma (£70 per person).",
+              };
+            case "timed":
+              return {
+                title: "Recommended: AINT Timed Exposure Cycle",
+                body: "Based on your answers, the AINT Timed Exposure Cycle Session (£70 · 60 minutes) is the matching specialist method session.",
               };
             default:
               return {
                 title: "Recommended: Private AINT Session",
-                body: "Based on your answers, one-to-one personalised support would be the best fit for your needs.",
+                body: "Based on your answers, a Private AINT Session (£50 · 60 minutes) is the best starting point for personalised one-to-one support.",
               };
           }
         },
