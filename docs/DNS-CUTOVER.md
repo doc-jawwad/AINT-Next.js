@@ -1,71 +1,89 @@
-﻿# DNS audit — aintfoundationcic.co.uk
+﻿# Full exit from Hostinger → Vercel + IONOS email
 
-Captured: 2026-09-11 14:53:59Z
+Your Hostinger plan is ending. **Do not leave nameservers on Hostinger** — when hosting/DNS-parking ends, the whole domain can stop resolving (website **and** email lookups).
 
-## Important
-- Change **only** web records (A / AAAA / CNAME for @ and www) to Vercel.
-- **Do not edit MX, SPF, DKIM, or DMARC** during cutover — email may be on Hostinger via IONOS DNS.
+## Target setup
 
-## Current records (lookup)
+| Piece | Where it lives |
+|-------|----------------|
+| Website | **Vercel** |
+| DNS / nameservers | **IONOS** (not Hostinger) |
+| Email (`info@`) | **IONOS** mail (unchanged) |
+| Hostinger | **Nothing** — cancel after cutover |
 
-### NS
-- hermes.dns-parking.com
-- artemis.dns-parking.com
-- 
-- 
-- 
-- 
+```mermaid
+flowchart LR
+  visitor --> vercel[Vercel_website]
+  ionosDns[IONOS_DNS] -->|A_CNAME| vercel
+  ionosDns -->|MX_SPF_DKIM| ionosMail[IONOS_email]
+```
 
-### A (@)
-- 91.108.100.21
-- 191.101.228.225
-- 
-- 
-- 172.64.52.144
-- 172.64.53.131
-- 2606:4700:52::ac40:3490
-- 2606:4700:5a::ac40:3583
+## Order of operations (do this before Hostinger expires)
 
-### AAAA
-- 2a02:4780:15:67f3:f8d9:7353:a040:58e6
-- 2a02:4780:38:a77d:6d8:c52e:c1cb:9f34
+### 1. Add domain in Vercel first
+- Vercel project → **Settings → Domains**
+- Add `aintfoundationcic.co.uk` and `www.aintfoundationcic.co.uk`
+- Note the exact records Vercel shows (usually **A** `@` → `76.76.21.21` and **CNAME** `www` → `cname.vercel-dns.com`)
 
-### CNAME www
-- www.aintfoundationcic.co.uk.cdn.hstgr.net
-- artemis.dns-parking.com
-- hermes.dns-parking.com
-- 
-- 
-- 
-- 
+### 2. Switch nameservers Hostinger → IONOS
+In **Hostinger** (or wherever nameservers are set for the domain):
 
-### MX (leave unchanged)
-- 10 mx00.ionos.co.uk
-- 20 mx01.ionos.co.uk
+1. Find **Nameservers** for `aintfoundationcic.co.uk`
+2. Change from Hostinger (`hermes.dns-parking.com` / `artemis.dns-parking.com`) to **IONOS default nameservers**  
+   (IONOS panel shows them under Domain → Nameserver — typically like `ns1026.ui-dns.*` / `ns1045.ui-dns.*` etc. Copy the exact values IONOS gives you.)
+3. Save. Propagation: often 1–24 hours (can be up to 48h)
 
-### TXT (SPF / verification — leave mail-related unchanged)
-- v=spf1 include:_spf-eu.ionos.com ~all
-- 
-- 
-- 
-- 
-- 
-- 
+When this completes, **IONOS DNS becomes active** (the warning “custom name server” goes away).
 
+### 3. Configure IONOS DNS (website + keep email)
 
-## Findings summary
-- **Nameservers:** Hostinger (*.dns-parking.com) — manage DNS in **Hostinger**, not IONOS DNS (unless NS are changed later).
-- **Website today:** Hostinger (www → cdn.hstgr.net).
-- **Email today:** **IONOS** MX (mx00/mx01.ionos.co.uk) + IONOS SPF. Leave these alone when switching web to Vercel.
+In **IONOS → Domains → aintfoundationcic.co.uk → DNS** (now active):
 
-## Vercel cutover steps
-1. Vercel project → Settings → Domains → add `aintfoundationcic.co.uk` and `www.aintfoundationcic.co.uk`.
-2. Copy the A/CNAME values Vercel shows.
-3. In IONOS DNS: update **only** those web records.
-4. Wait for SSL (often minutes; can be up to 48h).
-5. Smoke-test: homepage, CarePatron booking, `/contact` form, newsletter, `mailto:info@`.
-6. Send a test email **to** `info@aintfoundationcic.co.uk` from an external account to confirm MX still works.
+**Keep / ensure these email records exist:**
 
-## Resend (after mail is confirmed working)
-Verify the domain in Resend using a `send` subdomain or carefully merge SPF — do not remove existing Hostinger/IONOS SPF includes.
+| Type | Host | Value |
+|------|------|--------|
+| MX | `@` | `mx00.ionos.co.uk` (priority 10) |
+| MX | `@` | `mx01.ionos.co.uk` (priority 20) |
+| TXT | `@` | `v=spf1 include:_spf-eu.ionos.com ~all` |
+| CNAME | `_dmarc` | `dmarc.ionos.co.uk` (or keep your DMARC TXT if preferred) |
+| CNAME | `s1-ionos._domainkey` | `s1.dkim.ionos.com` |
+| CNAME | `s2-ionos._domainkey` | `s2.dkim.ionos.com` |
+| CNAME | `autodiscover` | IONOS autodiscover value |
 
+**Replace Hostinger/MyWebsite web records with Vercel:**
+
+| Action | Record |
+|--------|--------|
+| **Remove** any A/AAAA/CNAME/ALIAS pointing `@` or `www` at Hostinger CDN or IONOS MyWebsite | e.g. old A `217.160.*`, `www` A, Hostinger `cdn.hstgr.net` |
+| **Add** Vercel **A** for `@` | value from Vercel UI |
+| **Add** Vercel **CNAME** for `www` | value from Vercel UI |
+
+Do **not** reset DNS to defaults after you have set Vercel + mail correctly.
+
+### 4. Verify
+1. Vercel domain shows **Valid** / SSL issued  
+2. `https://aintfoundationcic.co.uk` loads the Next.js site  
+3. Send a test email **to** `info@aintfoundationcic.co.uk` from Gmail/etc.  
+4. CarePatron booking links still open  
+
+### 5. Cancel Hostinger
+Only after steps 2–4 work:
+
+- Cancel Hostinger hosting plan  
+- You do **not** need Hostinger DNS, CDN, or email  
+- Domain can stay registered wherever it is (IONOS or Hostinger registrar) — if the **domain registration** itself is at Hostinger, renew/transfer the domain to IONOS before that registration expires (separate from hosting)
+
+## What not to do
+- Do not wait until Hostinger is already expired to move nameservers  
+- Do not delete MX/SPF/DKIM  
+- Do not leave `@` / `www` pointing at `cdn.hstgr.net`  
+- Do not manage DNS in both panels at once — after NS switch, **only IONOS DNS** matters  
+
+## Checklist
+- [ ] Domain added in Vercel  
+- [ ] Nameservers set to IONOS  
+- [ ] IONOS DNS: Vercel A + www CNAME  
+- [ ] IONOS DNS: MX + SPF + DKIM still present  
+- [ ] Site + email tested  
+- [ ] Hostinger hosting cancelled  

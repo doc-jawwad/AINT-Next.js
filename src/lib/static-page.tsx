@@ -14,7 +14,7 @@ const PAGES: PageDef[] = [
   { slug: "community-support", title: "Community Support", description: "Low-cost and free community wellbeing support." },
   { slug: "training", title: "Training", description: "Learn and certify in the award-winning AINT Model." },
   { slug: "aint-books", title: "Books", description: "Books by Dr Trish Avery on healing, resilience, and community care." },
-  { slug: "collabs", title: "Collaborations", description: "Partner with AINT Foundation CIC." },
+  { slug: "collabs", title: "Collaborations & Awards", description: "Partners, awards, and press features for AINT Foundation CIC." },
   { slug: "booking", title: "Booking", description: "Choose the support that fits your needs today." },
   { slug: "book-private", title: "Book Private Therapy", description: "Book a private therapy session with AINT Foundation." },
   { slug: "book-sos", title: "Book SOS Support", description: "Urgent emotional support sessions — same-day or next available." },
