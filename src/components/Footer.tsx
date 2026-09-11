@@ -87,8 +87,9 @@ export default function Footer() {
                   marginBottom: 24,
                   display: "flex",
                   flexDirection: "row",
-                  gap: 20,
-                  alignItems: "center",
+                  flexWrap: "wrap",
+                  gap: 12,
+                  alignItems: "stretch",
                 }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -100,10 +101,27 @@ export default function Footer() {
                     width: "auto",
                     maxWidth: "100%",
                     display: "block",
-                    borderRadius: 6,
+                    borderRadius: 8,
                     background: "#fff",
-                    padding: "6px 8px",
+                    padding: "6px 10px",
                     objectFit: "contain",
+                    boxSizing: "border-box",
+                  }}
+                />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/media/partners/cpd-group.webp"
+                  alt="The CPD Group"
+                  style={{
+                    height: 56,
+                    width: "auto",
+                    maxWidth: 120,
+                    display: "block",
+                    borderRadius: 8,
+                    background: "#fff",
+                    padding: "6px 10px",
+                    objectFit: "contain",
+                    boxSizing: "border-box",
                   }}
                 />
               </div>
