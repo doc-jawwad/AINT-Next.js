@@ -1,0 +1,8 @@
+﻿import type { Metadata } from "next";
+import { StaticHtmlPage, staticMetadata } from "../../lib/static-page";
+
+export const metadata: Metadata = staticMetadata("terms-and-conditions");
+
+export default function Page() {
+  return <StaticHtmlPage slug="terms-and-conditions" />;
+}
