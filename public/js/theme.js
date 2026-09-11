@@ -187,13 +187,13 @@
           }
           if (resultKey === "free") {
             return {
-              title: "Recommended: Community Support (Free)",
-              body: "Based on your answers, you may be eligible for free community sessions. Submit a request and we’ll match you based on availability.",
+              title: "Recommended: Community Support (Group 1 — Free)",
+              body: "Based on your answers, you may be eligible for funded Community Group 1 sessions (free). Submit a request and we’ll match you based on availability.",
             };
           }
           return {
-            title: "Recommended: Community Support (£20)",
-            body: "Based on your answers, the £20 community option is likely the best fit. Submit a request and we’ll match you based on availability.",
+            title: "Recommended: Community Support (Group 2)",
+            body: "Based on your answers, Community Group 2 is likely the best fit (£20 first session, then £10). Submit a request and we’ll match you based on availability.",
           };
         },
         ctaLabel: (resultKey) => (resultKey === "private" ? "Explore Private Therapy" : "Request Community Support"),
@@ -202,7 +202,7 @@
 
       training: {
         title: "Training Programme Selector",
-        subtitle: "A few quick questions to choose between Foundation and Practitioner Certification.",
+        subtitle: "A few quick questions to choose between Level 1 and Level 2 CPD training.",
         steps: [
           {
             id: "goal",
@@ -224,10 +224,10 @@
           },
           {
             id: "time",
-            question: "How much time can you commit?",
+            question: "Which course sounds right?",
             options: [
-              { label: "6 hours", value: "foundation_time" },
-              { label: "2 full days", value: "practitioner_time" },
+              { label: "Level 1 Early Awareness (£115 · 4 hours)", value: "foundation_time" },
+              { label: "Level 2 Practitioner (£135 · 4 hours)", value: "practitioner_time" },
               { label: "Either works for me", value: "either" },
             ],
           },
@@ -242,18 +242,18 @@
         resultCopy: (resultKey) => {
           if (resultKey === "practitioner") {
             return {
-              title: "Recommended: Practitioner Certification",
-              body: "Based on your answers, Practitioner Certification is the best fit for developing professional-level AINT skills for real-world work.",
+              title: "Recommended: Level 2 Practitioner Training (£135)",
+              body: "Based on your answers, Level 2 Practitioner Training (4 hours CPD) is the best fit for developing practical AINT skills.",
             };
           }
           return {
-            title: "Recommended: Foundation (CPD Course)",
-            body: "Based on your answers, Foundation is the best fit — a clear introduction with immediate practical value.",
+            title: "Recommended: Level 1 Early-Help Awareness (£115)",
+            body: "Based on your answers, Level 1 Early Awareness Course (4 hours CPD) is the best fit — a clear introduction with immediate practical value.",
           };
         },
         ctaLabel: (resultKey) => {
-          if (resultKey === "practitioner") return "Go to Practitioner";
-          return "Go to Foundation";
+          if (resultKey === "practitioner") return "Go to Level 2";
+          return "Go to Level 1";
         },
         ctaHref: (resultKey) => {
           if (resultKey === "practitioner") return "/training#practitioner";

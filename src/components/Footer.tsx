@@ -93,15 +93,18 @@ export default function Footer() {
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/media/2026/05/UK-Business-Award-for-AINT-foundation.webp"
-                  alt="UK Business Award"
-                  style={{ height: 54, width: "auto", display: "block", borderRadius: 4 }}
-                />
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/media/2026/05/Global-Recognition-Award-AINT-Foundation-CIC.webp"
-                  alt="Global Recognition Award"
-                  style={{ height: 54, width: "auto", display: "block", borderRadius: 4 }}
+                  src="/media/awards/awards-logos-strip.webp"
+                  alt="AINT Foundation awards and partner logos"
+                  style={{
+                    height: 56,
+                    width: "auto",
+                    maxWidth: "100%",
+                    display: "block",
+                    borderRadius: 6,
+                    background: "#fff",
+                    padding: "6px 8px",
+                    objectFit: "contain",
+                  }}
                 />
               </div>
 
