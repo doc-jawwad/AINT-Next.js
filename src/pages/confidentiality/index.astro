@@ -1,0 +1,15 @@
+﻿---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import HtmlContent from "../../components/HtmlContent.astro";
+import { getPageHtml } from "../../lib/pages";
+import { staticPageTitle, staticPageDescription } from "../../lib/page-meta";
+
+const slug = "confidentiality";
+const html = getPageHtml(slug);
+const title = staticPageTitle(slug);
+const description = staticPageDescription(slug);
+---
+
+<BaseLayout title={title} description={description}>
+  <HtmlContent html={html} />
+</BaseLayout>

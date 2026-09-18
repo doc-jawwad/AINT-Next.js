@@ -1,0 +1,75 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import FloatingCallButton from "../components/FloatingCallButton.astro";
+import "../styles/globals.css";
+import "../styles/aint.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** When true, use the absolute default title (homepage). */
+  absoluteTitle?: boolean;
+  loadFrontInteractions?: boolean;
+}
+
+const DEFAULT_TITLE = "AINT Foundation – Community Interest Company";
+const DEFAULT_DESCRIPTION =
+  "Trauma-informed therapeutic support, community wellbeing training, and practical emotional tools. Without judgment. Without shame. Without fear.";
+
+const {
+  title,
+  description = DEFAULT_DESCRIPTION,
+  absoluteTitle = false,
+  loadFrontInteractions = false,
+} = Astro.props;
+
+const pageTitle = absoluteTitle
+  ? title || DEFAULT_TITLE
+  : title
+    ? `${title} | AINT Foundation CIC`
+    : DEFAULT_TITLE;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <meta property="og:title" content={absoluteTitle || !title ? "AINT Foundation CIC" : pageTitle} />
+    <meta
+      property="og:description"
+      content={
+        absoluteTitle || !title
+          ? "Communities heal from the inside out — trauma-informed support and training."
+          : description
+      }
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:url" content={canonicalURL} />
+    <link rel="preconnect" href="https://aintfoundationcic.co.uk" />
+    <link
+      rel="preload"
+      as="image"
+      href="/media/2026/05/Flowers-for-Hero-Section-of-AINT-Foundation-CIC-scaled.webp"
+    />
+  </head>
+  <body>
+    <Header />
+    <main class="site-main">
+      <slot />
+    </main>
+    <Footer />
+    <FloatingCallButton />
+    <script is:inline src="/js/theme.js"></script>
+    {loadFrontInteractions && (
+      <script is:inline src="/js/front-interactions.js"></script>
+    )}
+  </body>
+</html>

@@ -1,0 +1,151 @@
+@import "tailwindcss";
+
+@import "@fontsource/outfit/300.css";
+@import "@fontsource/outfit/400.css";
+@import "@fontsource/outfit/500.css";
+@import "@fontsource/outfit/600.css";
+@import "@fontsource/outfit/700.css";
+
+@import "@fontsource/cormorant-garamond/300.css";
+@import "@fontsource/cormorant-garamond/400.css";
+@import "@fontsource/cormorant-garamond/500.css";
+@import "@fontsource/cormorant-garamond/600.css";
+@import "@fontsource/cormorant-garamond/300-italic.css";
+@import "@fontsource/cormorant-garamond/400-italic.css";
+@import "@fontsource/cormorant-garamond/500-italic.css";
+@import "@fontsource/cormorant-garamond/600-italic.css";
+
+@import "@fontsource/playfair-display/400-italic.css";
+@import "@fontsource/playfair-display/500-italic.css";
+
+:root {
+  --font-outfit: "Outfit", sans-serif;
+  --font-cormorant: "Cormorant Garamond", serif;
+  --font-playfair: "Playfair Display", serif;
+}
+
+/* Theme fonts — map CSS variables into the existing design system */
+body {
+  font-family: var(--font-outfit);
+}
+
+h1.hero-title,
+h2.s-title,
+.logo-name,
+.fp-meaning-title,
+.fp-meaning-letter,
+.hero-aint-letter,
+.aint-l,
+.logo-orb {
+  font-family: var(--font-cormorant);
+}
+
+.hero-sub {
+  font-family: var(--font-playfair);
+}
+
+/* Blog article prose */
+.blog-prose {
+  max-width: 760px;
+  margin: 0 auto;
+  font-size: 17px;
+  line-height: 1.8;
+  color: var(--text-m);
+}
+
+.blog-prose h2,
+.blog-prose h3 {
+  font-family: var(--font-cormorant);
+  color: var(--char);
+  margin: 1.6em 0 0.6em;
+  font-weight: 400;
+}
+
+.blog-prose p {
+  margin-bottom: 1.1em;
+}
+
+.blog-prose ul,
+.blog-prose ol {
+  margin: 0 0 1.2em 1.4em;
+}
+
+.blog-prose a {
+  color: var(--sage-d);
+  text-decoration: underline;
+}
+
+.blog-prose img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin: 1.5em 0;
+}
+
+.blog-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 28px;
+}
+
+.blog-card {
+  background: var(--white);
+  border: 1px solid rgba(24, 36, 28, 0.08);
+  border-radius: 18px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(24, 36, 28, 0.1);
+}
+
+.blog-card-img {
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  width: 100%;
+  background: var(--warm);
+}
+
+.blog-card-body {
+  padding: 22px 22px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.blog-card-date {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-l);
+}
+
+.blog-card-title {
+  font-family: var(--font-cormorant);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--char);
+}
+
+.blog-card-excerpt {
+  font-size: 14px;
+  color: var(--text-m);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.blog-card-more {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--sage-d);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}

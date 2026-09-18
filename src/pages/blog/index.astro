@@ -1,0 +1,54 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getAllPosts } from "../../lib/posts";
+
+const posts = getAllPosts();
+
+function stripHtml(html: string) {
+  return html.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+}
+---
+
+<BaseLayout
+  title="Blog"
+  description="Thoughts on healing, trauma-informed care, and community wellbeing from AINT Foundation CIC."
+>
+  <header class="page-header">
+    <div class="s-kicker" style="justify-content: center;">Resources & Insights</div>
+    <h1 style="text-align: center;">Thoughts on healing &amp; community</h1>
+  </header>
+  <section class="section-wrap" style="padding-top: 40px;">
+    <div class="blog-card-grid">
+      {
+        posts.map((post) => {
+          const excerpt = stripHtml(post.excerpt).slice(0, 160);
+          const date = new Date(post.date).toLocaleDateString("en-GB", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          });
+          return (
+            <a href={`/${post.slug}`} class="blog-card">
+              {post.featuredImage?.url ? (
+                <img
+                  class="blog-card-img"
+                  src={post.featuredImage.url}
+                  alt={post.featuredImage.alt || post.title}
+                  loading="lazy"
+                />
+              ) : (
+                <div class="blog-card-img" />
+              )}
+              <div class="blog-card-body">
+                <div class="blog-card-date">{date}</div>
+                <h2 class="blog-card-title">{post.title}</h2>
+                {excerpt ? <p class="blog-card-excerpt">{excerpt}…</p> : null}
+                <span class="blog-card-more">Read article →</span>
+              </div>
+            </a>
+          );
+        })
+      }
+    </div>
+  </section>
+</BaseLayout>

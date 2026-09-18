@@ -1,0 +1,16 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HtmlContent from "../components/HtmlContent.astro";
+import { getPageHtml } from "../lib/pages";
+
+const html = getPageHtml("home");
+---
+
+<BaseLayout
+  absoluteTitle={true}
+  title="AINT Foundation – Community Interest Company"
+  description="Communities heal from the inside out. Trauma-informed therapeutic support, community wellbeing training, and practical emotional tools."
+  loadFrontInteractions={true}
+>
+  <HtmlContent html={html} />
+</BaseLayout>

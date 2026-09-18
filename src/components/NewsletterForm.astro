@@ -1,0 +1,97 @@
+---
+---
+
+<div>
+  <form
+    class="footer-signup-form"
+    data-newsletter-form
+    novalidate
+    style="display: flex; gap: 8px; flex-wrap: nowrap;"
+  >
+    <label class="screen-reader-text" for="footerSignupEmail">
+      Email address
+    </label>
+    <input
+      type="email"
+      id="footerSignupEmail"
+      name="email"
+      required
+      placeholder="Your email address"
+      style="flex: 1; min-width: 0;"
+    />
+    <div
+      aria-hidden="true"
+      style="position: absolute; left: -10000px; height: 1px; overflow: hidden;"
+    >
+      <label for="footerSignupWebsite">Website</label>
+      <input id="footerSignupWebsite" name="website" type="text" tabindex={-1} autocomplete="off" />
+    </div>
+    <button
+      type="submit"
+      class="btn-p footer-signup-btn"
+      data-submit-btn
+      style="flex-shrink: 0;"
+    >
+      Join
+    </button>
+  </form>
+  <p data-success hidden style="margin-top: 10px; font-size: 13px; color: rgba(255,255,255,0.85);" role="status">
+    Thanks — you are subscribed.
+  </p>
+  <p data-error hidden style="margin-top: 10px; font-size: 13px; color: #f8c9c9;" role="alert"></p>
+</div>
+
+<script>
+  function initNewsletterForms() {
+    document.querySelectorAll<HTMLFormElement>("[data-newsletter-form]").forEach((form) => {
+      if (form.dataset.bound === "true") return;
+      form.dataset.bound = "true";
+
+      const wrap = form.parentElement;
+      const submitBtn = form.querySelector<HTMLButtonElement>("[data-submit-btn]");
+      const successEl = wrap?.querySelector<HTMLElement>("[data-success]");
+      const errorEl = wrap?.querySelector<HTMLElement>("[data-error]");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (!submitBtn || !successEl || !errorEl) return;
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "…";
+        successEl.hidden = true;
+        errorEl.hidden = true;
+        errorEl.textContent = "";
+
+        const data = new FormData(form);
+
+        try {
+          const res = await fetch("/api/newsletter", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              email: data.get("email"),
+              website: data.get("website") || "",
+            }),
+          });
+          const json = (await res.json()) as { error?: string };
+          if (!res.ok) {
+            errorEl.textContent = json.error || "Something went wrong.";
+            errorEl.hidden = false;
+            return;
+          }
+          successEl.hidden = false;
+          form.reset();
+        } catch {
+          errorEl.textContent = "Network error. Please try again.";
+          errorEl.hidden = false;
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Join";
+        }
+      });
+    });
+  }
+
+  initNewsletterForms();
+  document.addEventListener("astro:page-load", initNewsletterForms);
+</script>

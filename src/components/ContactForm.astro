@@ -1,0 +1,132 @@
+---
+interface Props {
+  source?: string;
+  submitLabel?: string;
+  showMessage?: boolean;
+  class?: string;
+}
+
+const {
+  source = "contact",
+  submitLabel = "Submit",
+  showMessage = true,
+  class: className,
+} = Astro.props;
+---
+
+<form class={className} data-contact-form data-source={source} novalidate>
+  <div style="margin-bottom: 20px;">
+    <label for={`${source}-name`} style="display: block; font-size: 14px; font-weight: 600; color: var(--char); margin-bottom: 8px;">
+      Name <span aria-hidden="true">*</span>
+    </label>
+    <input
+      id={`${source}-name`}
+      name="name"
+      type="text"
+      required
+      autocomplete="name"
+      style="width: 100%; padding: 12px 16px; border: 1px solid rgba(92, 138, 111, 0.2); border-radius: 8px; font-size: 16px; font-family: inherit; box-sizing: border-box; background: #fff; color: var(--char);"
+    />
+  </div>
+  <div style="margin-bottom: 20px;">
+    <label for={`${source}-email`} style="display: block; font-size: 14px; font-weight: 600; color: var(--char); margin-bottom: 8px;">
+      Email <span aria-hidden="true">*</span>
+    </label>
+    <input
+      id={`${source}-email`}
+      name="email"
+      type="email"
+      required
+      autocomplete="email"
+      style="width: 100%; padding: 12px 16px; border: 1px solid rgba(92, 138, 111, 0.2); border-radius: 8px; font-size: 16px; font-family: inherit; box-sizing: border-box; background: #fff; color: var(--char);"
+    />
+  </div>
+  {
+    showMessage && (
+      <div style="margin-bottom: 20px;">
+        <label for={`${source}-message`} style="display: block; font-size: 14px; font-weight: 600; color: var(--char); margin-bottom: 8px;">
+          Comment or Message
+        </label>
+        <textarea
+          id={`${source}-message`}
+          name="message"
+          rows={5}
+          style="width: 100%; padding: 12px 16px; border: 1px solid rgba(92, 138, 111, 0.2); border-radius: 8px; font-size: 16px; font-family: inherit; box-sizing: border-box; background: #fff; color: var(--char); min-height: 120px; resize: vertical;"
+        />
+      </div>
+    )
+  }
+  <div
+    aria-hidden="true"
+    style="position: absolute; left: -10000px; height: 1px; overflow: hidden;"
+  >
+    <label for={`${source}-website`}>Website</label>
+    <input id={`${source}-website`} name="website" type="text" tabindex={-1} autocomplete="off" />
+  </div>
+  <button type="submit" class="btn-p" data-submit-btn style="width: 100%;">
+    {submitLabel}
+  </button>
+  <p data-success hidden style="margin-top: 16px; color: var(--sage-d); font-weight: 600;" role="status">
+    Thank you — we have received your message and will be in touch.
+  </p>
+  <p data-error hidden style="margin-top: 16px; color: #a33; font-weight: 600;" role="alert"></p>
+</form>
+
+<script>
+  function initContactForms() {
+    document.querySelectorAll<HTMLFormElement>("[data-contact-form]").forEach((form) => {
+      if (form.dataset.bound === "true") return;
+      form.dataset.bound = "true";
+
+      const submitBtn = form.querySelector<HTMLButtonElement>("[data-submit-btn]");
+      const successEl = form.querySelector<HTMLElement>("[data-success]");
+      const errorEl = form.querySelector<HTMLElement>("[data-error]");
+      const defaultLabel = submitBtn?.textContent || "Submit";
+      const source = form.dataset.source || "contact";
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (!submitBtn || !successEl || !errorEl) return;
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Sending…";
+        successEl.hidden = true;
+        errorEl.hidden = true;
+        errorEl.textContent = "";
+
+        const data = new FormData(form);
+
+        try {
+          const res = await fetch("/api/contact", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: data.get("name"),
+              email: data.get("email"),
+              message: data.get("message") || "",
+              source,
+              website: data.get("website") || "",
+            }),
+          });
+          const json = (await res.json()) as { error?: string };
+          if (!res.ok) {
+            errorEl.textContent = json.error || "Something went wrong.";
+            errorEl.hidden = false;
+            return;
+          }
+          successEl.hidden = false;
+          form.reset();
+        } catch {
+          errorEl.textContent = "Network error. Please try again.";
+          errorEl.hidden = false;
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = defaultLabel;
+        }
+      });
+    });
+  }
+
+  initContactForms();
+  document.addEventListener("astro:page-load", initContactForms);
+</script>

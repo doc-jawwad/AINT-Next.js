@@ -1,0 +1,106 @@
+---
+const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
+
+const NAV = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/private-therapy", label: "Private Therapy" },
+  { href: "/community-support", label: "Community Support" },
+  { href: "/training", label: "Training" },
+  { href: "/aint-books", label: "Books" },
+  { href: "/collabs", label: "Collab & Awards" },
+  { href: "/blog", label: "Blog" },
+];
+
+function isCurrent(href: string) {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+---
+
+<div class="progress-bar" id="progressBar"></div>
+<header id="nav" class="site-header">
+  <div class="header-inner">
+    <div class="header-top">
+      <a href="/" class="nav-logo" aria-label="AINT Foundation homepage">
+        <img
+          class="logo-image"
+          src="/media/2026/05/AINT-Foundation-CIC-logo.webp"
+          alt="AINT Foundation CIC logo"
+        />
+        <div class="logo-copy">
+          <div class="logo-name">AINT Foundation CIC</div>
+          <div class="logo-sub">Community Interest Company</div>
+        </div>
+      </a>
+
+      <div class="header-cta-group">
+        <a class="header-btn header-btn-accent" href="tel:+443000301309">
+          <span class="header-btn-full">Free Call +44 3000 301309</span>
+          <span class="header-btn-short">Call</span>
+        </a>
+        <a class="header-btn header-btn-membership" href="/membership">
+          <span class="header-btn-full">Get Membership</span>
+          <span class="header-btn-short">Membership</span>
+        </a>
+        <a class="header-btn header-btn-primary" href="/book-private">
+          Book a Session
+        </a>
+      </div>
+
+      <div class="mobile-header-actions">
+        <a class="mobile-call-btn" href="tel:+443000301309" aria-label="Call AINT Foundation">
+          <span aria-hidden="true">☎</span>
+        </a>
+        <a class="header-btn header-btn-primary mobile-book-btn" href="/book-private">
+          Book
+        </a>
+        <button
+          class="hamburger"
+          id="hamburger"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+          aria-controls="mobileMenu"
+          type="button"
+        >
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <nav class="header-center-nav" aria-label="Primary navigation">
+      <ul class="nav-links">
+        {
+          NAV.map((item) => (
+            <li class={isCurrent(item.href) ? "is-current" : undefined}>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <ul class="mobile-nav-links">
+    {
+      NAV.map((item) => (
+        <li class={isCurrent(item.href) ? "is-current" : undefined}>
+          <a href={item.href}>{item.label}</a>
+        </li>
+      ))
+    }
+  </ul>
+  <div class="mobile-cta-group">
+    <a class="header-btn header-btn-accent" href="tel:+443000301309">
+      Free Call +44 3000 301309
+    </a>
+    <a class="header-btn header-btn-membership" href="/membership">
+      Get Membership
+    </a>
+    <a class="header-btn header-btn-primary" href="/book-private">
+      Book a Session
+    </a>
+  </div>
+</div>

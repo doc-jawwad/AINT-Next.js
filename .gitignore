@@ -11,9 +11,13 @@ node_modules/
 # Testing
 /coverage
 
-# Next.js
+# Next.js (legacy during migration)
 /.next/
 /out/
+
+# Astro
+/dist/
+.astro/
 
 # Production
 /build

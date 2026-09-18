@@ -1,0 +1,217 @@
+---
+import NewsletterForm from "./NewsletterForm.astro";
+
+const year = new Date().getFullYear();
+
+const QUICK = [
+  { label: "Pricing", href: "/#pricing" },
+  { label: "Who We Serve", href: "/#serve" },
+  { label: "How to Get Started", href: "/#start" },
+  { label: "The Team", href: "/#team" },
+];
+
+const SERVICES = [
+  { label: "Training", href: "/training" },
+  { label: "Community Support", href: "/community-support" },
+  { label: "Private Therapy", href: "/private-therapy" },
+  {
+    label: "SOS Booking",
+    href: "https://book.carepatron.com/Aint-Foundation-CIC/Aint-Foundation?p=Wd4kcNkaS2e-6Py4IfQBCA&s=OwaP1NrA&i=ir7KLD-y",
+  },
+];
+
+const LEGAL = [
+  { label: "Privacy Policy", href: "/privacy-policy" },
+  { label: "Terms & Conditions", href: "/terms-and-conditions" },
+  { label: "Cookie Policy", href: "/cookie-policy" },
+  { label: "Safeguarding", href: "/safeguarding" },
+  { label: "Confidentiality", href: "/confidentiality" },
+  { label: "Complaints", href: "/complaints" },
+  { label: "Cancellation Policy", href: "/cancellation-policy" },
+];
+
+const SOCIAL = [
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/aint-foundation-cic/",
+    path: "M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z",
+  },
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/Aint.foundation.cic/",
+    path: "M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z",
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/aint_foundation_cic/",
+    path: "M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z",
+  },
+  {
+    label: "YouTube",
+    href: "https://www.youtube.com/@AINTFoundationCICwithTrish",
+    path: "M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z",
+  },
+];
+---
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand footer-about">
+      <div>
+        <a href="/" class="nav-logo" style="text-decoration: none">
+          <div class="logo-orb">A</div>
+          <div>
+            <div class="logo-name">AINT Foundation CIC</div>
+            <div class="logo-sub">Community Interest Company</div>
+          </div>
+        </a>
+        <div
+          class="footer-cic-trust"
+          style="margin-top: 24px; padding: 18px; background: rgba(92,138,111,0.15); border: 1px solid rgba(92,138,111,0.3); border-radius: 16px;"
+        >
+          <strong style="display: block; font-size: 14px; color: #fff; margin-bottom: 6px;">
+            AINT Foundation CIC — A Community Interest Company
+          </strong>
+          <span style="font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.5; display: block;">
+            Private therapy income helps fund low-cost and free community support.
+          </span>
+        </div>
+
+        <div
+          class="footer-awards"
+          style="margin-top: 24px; margin-bottom: 24px; display: flex; flex-direction: row; flex-wrap: wrap; gap: 12px; align-items: stretch;"
+        >
+          <img
+            src="/media/awards/awards-logos-strip.webp"
+            alt="AINT Foundation awards and partner logos"
+            style="height: 56px; width: auto; max-width: 100%; display: block; border-radius: 8px; background: #fff; padding: 6px 10px; object-fit: contain; box-sizing: border-box;"
+          />
+          <img
+            src="/media/partners/cpd-group.webp"
+            alt="The CPD Group"
+            style="height: 56px; width: auto; max-width: 120px; display: block; border-radius: 8px; background: #fff; padding: 6px 10px; object-fit: contain; box-sizing: border-box;"
+          />
+        </div>
+
+        <div class="footer-brand-btns" style="display: flex; flex-direction: row; gap: 8px; margin-top: 16px;">
+          <a href="/community-access" class="btn-gold footer-brand-btn" style="flex: 1; text-align: center; padding: 12px 8px; font-size: 13px; min-width: 0;">
+            Access Community Support
+          </a>
+          <a href="/book-private" class="btn-p footer-brand-btn" style="flex: 1; text-align: center; padding: 12px 8px; font-size: 13px; min-width: 0;">
+            Book a Session
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-socials" aria-label="Social links">
+        {
+          SOCIAL.map((s) => (
+            <a href={s.href} class="footer-social-link" aria-label={s.label} target="_blank" rel="noopener noreferrer">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d={s.path} />
+              </svg>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="footer-cols">
+      <div class="footer-widget">
+        <h2>Quick Links</h2>
+        <ul>
+          {QUICK.map((l) => (
+            <li><a href={l.href}>{l.label}</a></li>
+          ))}
+        </ul>
+      </div>
+      <div class="footer-widget">
+        <h2>Services</h2>
+        <ul>
+          {
+            SERVICES.map((l) => (
+              <li>
+                {l.href.startsWith("http") ? (
+                  <a href={l.href} class="footer-service-text" target="_blank" rel="noopener noreferrer">{l.label}</a>
+                ) : (
+                  <a href={l.href} class="footer-service-text">{l.label}</a>
+                )}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="footer-widget">
+        <h2>Legal & Policies</h2>
+        <ul>
+          {LEGAL.map((l) => (
+            <li><a href={l.href}>{l.label}</a></li>
+          ))}
+        </ul>
+      </div>
+      <div class="footer-widget footer-contact">
+        <h2>Contact</h2>
+        <ul>
+          <li><a href="mailto:info@aintfoundationcic.co.uk">info@aintfoundationcic.co.uk</a></li>
+          <li><a href="tel:+443000301309">+44 3000 301309</a></li>
+          <li><span class="footer-service-text">Location: United Kingdom</span></li>
+          <li><span class="footer-service-text">AINT Foundation CIC</span></li>
+          <li><span class="footer-service-text">Company Number: 17193409</span></li>
+        </ul>
+      </div>
+
+      <div
+        class="footer-crisis-horizontal"
+        style="grid-column: 1 / -1; padding: 24px 32px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px;"
+      >
+        <div>
+          <h3 style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px;">Crisis Support Notice</h3>
+          <p style="font-size: 13px; color: rgba(255,255,255,0.7); margin: 0;">We are not a crisis or emergency service.</p>
+        </div>
+        <div style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap;">
+          <strong style="color: rgba(255,255,255,0.8); font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;">
+            If you need immediate help:
+          </strong>
+          <div style="display: flex; gap: 24px; font-size: 14px; font-weight: 600;">
+            <span><span style="color: rgba(255,255,255,0.5); font-weight: 400; margin-right: 6px;">Samaritans:</span> <a href="tel:116123" style="color: #fff; text-decoration: none;">116 123</a></span>
+            <span><span style="color: rgba(255,255,255,0.5); font-weight: 400; margin-right: 6px;">NHS:</span> <a href="tel:111" style="color: #fff; text-decoration: none;">111</a></span>
+            <span><span style="color: rgba(255,255,255,0.5); font-weight: 400; margin-right: 6px;">Emergency:</span> <a href="tel:999" style="color: #fff; text-decoration: none;">999</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-signup">
+    <div class="footer-signup-copy">
+      <div class="footer-signup-title">Join our updates on training and wellbeing</div>
+    </div>
+    <NewsletterForm />
+  </div>
+
+  <div class="footer-bottom">
+    <div class="f-copy">© {year} AINT Foundation CIC</div>
+    <div class="footer-legal">
+      <span>AINT Foundation CIC</span>
+    </div>
+  </div>
+</footer>
+
+<div class="aint-quiz-modal" id="aintQuizModal" aria-hidden="true" hidden>
+  <div class="aint-quiz-backdrop" data-aint-quiz-close></div>
+  <div class="aint-quiz-panel" role="dialog" aria-modal="true" aria-label="2-minute quiz">
+    <button type="button" class="aint-quiz-close" aria-label="Close quiz" data-aint-quiz-close>×</button>
+    <div class="aint-quiz-inner" data-aint-quiz-root>
+      <!-- Rendered by theme.js -->
+    </div>
+  </div>
+</div>
+
+<button class="btt" id="btt" type="button" aria-label="Back to top">↑</button>
+
+<script>
+  const btt = document.getElementById("btt");
+  btt?.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+</script>
