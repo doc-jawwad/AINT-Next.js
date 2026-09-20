@@ -18,12 +18,12 @@ Allow: /
 User-agent: Claude-User
 Allow: /
 
-# AI training crawlers (disallowed pending client decision)
+# AI training crawlers
 User-agent: GPTBot
-Disallow: /
+Allow: /
 
 User-agent: ClaudeBot
-Disallow: /
+Allow: /
 
 # All other crawlers
 User-agent: *
