@@ -1,32 +1,88 @@
-# Search engine crawlers
+# https://aintfoundationcic.co.uk/robots.txt
+# Booking flows must not be crawled or indexed.
+
 User-agent: Googlebot
+Disallow: /book
+Disallow: /book-private
+Disallow: /book-individual
+Disallow: /book-couples
+Disallow: /book-children
+Disallow: /book-sos
+Disallow: /book-group
+Disallow: /booking
 Allow: /
 
 User-agent: bingbot
+Disallow: /book
+Disallow: /book-private
+Disallow: /book-individual
+Disallow: /book-couples
+Disallow: /book-children
+Disallow: /book-sos
+Disallow: /book-group
+Disallow: /booking
 Allow: /
 
-# AI search/retrieval crawlers (allow for search visibility)
 User-agent: OAI-SearchBot
+Disallow: /book
+Disallow: /book-private
+Disallow: /book-individual
+Disallow: /book-couples
+Disallow: /book-children
+Disallow: /book-sos
+Disallow: /book-group
+Disallow: /booking
 Allow: /
 
 User-agent: Claude-SearchBot
+Disallow: /book
+Disallow: /book-private
+Disallow: /book-individual
+Disallow: /book-couples
+Disallow: /book-children
+Disallow: /book-sos
+Disallow: /book-group
+Disallow: /booking
 Allow: /
 
 User-agent: PerplexityBot
+Disallow: /book
+Disallow: /book-private
+Disallow: /book-individual
+Disallow: /book-couples
+Disallow: /book-children
+Disallow: /book-sos
+Disallow: /book-group
+Disallow: /booking
 Allow: /
 
 User-agent: Claude-User
+Disallow: /book
+Disallow: /book-private
+Disallow: /book-individual
+Disallow: /book-couples
+Disallow: /book-children
+Disallow: /book-sos
+Disallow: /book-group
+Disallow: /booking
 Allow: /
 
-# AI training crawlers
+# AI training crawlers (blocked)
 User-agent: GPTBot
-Allow: /
+Disallow: /
 
 User-agent: ClaudeBot
-Allow: /
+Disallow: /
 
-# All other crawlers
 User-agent: *
+Disallow: /book
+Disallow: /book-private
+Disallow: /book-individual
+Disallow: /book-couples
+Disallow: /book-children
+Disallow: /book-sos
+Disallow: /book-group
+Disallow: /booking
 Allow: /
 
 Sitemap: https://aintfoundationcic.co.uk/sitemap.xml
