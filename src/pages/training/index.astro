@@ -8,8 +8,54 @@ const slug = "training";
 const html = getPageHtml(slug);
 const title = staticPageTitle(slug);
 const description = staticPageDescription(slug);
+
+const schema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://aintfoundationcic.co.uk/training#webpage",
+      "url": "https://aintfoundationcic.co.uk/training",
+      "name": "Practitioner Training | AINT Foundation CIC",
+      "description": "Learn and certify in the award-winning AINT Model.",
+      "isPartOf": { "@id": "https://aintfoundationcic.co.uk/#website" },
+      "breadcrumb": { "@id": "https://aintfoundationcic.co.uk/training#breadcrumb" },
+      "inLanguage": "en-GB"
+    },
+    {
+      "@type": "EducationalOccupationalProgram",
+      "@id": "https://aintfoundationcic.co.uk/#practitioner-training",
+      "name": "AINT Model Practitioner Training",
+      "description": "Professional training teaching the AINT Model (Avery Integrative Non-Judgemental Therapy) to therapists, counsellors, coaches, and practitioners. Includes certification.",
+      "provider": { "@id": "https://aintfoundationcic.co.uk/#organization" },
+      "url": "https://aintfoundationcic.co.uk/training",
+      "educationalProgramMode": "online",
+      "hasCourse": {
+        "@type": "Course",
+        "name": "Level 1 AINT Model Practitioner Training",
+        "description": "Foundation-level certification in the AINT Model for qualified or trainee practitioners.",
+        "provider": { "@id": "https://aintfoundationcic.co.uk/#organization" },
+        "url": "https://aintfoundationcic.co.uk/training",
+        "offers": {
+          "@type": "Offer",
+          "name": "Level 1 Practitioner Training",
+          "price": "115.00",
+          "priceCurrency": "GBP"
+        }
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://aintfoundationcic.co.uk/training#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://aintfoundationcic.co.uk/" },
+        { "@type": "ListItem", "position": 2, "name": "Training", "item": "https://aintfoundationcic.co.uk/training" }
+      ]
+    }
+  ]
+});
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} schema={schema}>
   <HtmlContent html={html} />
 </BaseLayout>

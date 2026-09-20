@@ -8,8 +8,33 @@ const slug = "collabs";
 const html = getPageHtml(slug);
 const title = "Partnerships & Awards";
 const description = staticPageDescription(slug);
+
+const schema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://aintfoundationcic.co.uk/partnerships-awards#webpage",
+      "url": "https://aintfoundationcic.co.uk/partnerships-awards",
+      "name": "Partnerships & Awards | AINT Foundation CIC",
+      "description": "Partners, awards, and press features for AINT Foundation CIC.",
+      "isPartOf": { "@id": "https://aintfoundationcic.co.uk/#website" },
+      "about": { "@id": "https://aintfoundationcic.co.uk/#organization" },
+      "breadcrumb": { "@id": "https://aintfoundationcic.co.uk/partnerships-awards#breadcrumb" },
+      "inLanguage": "en-GB"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://aintfoundationcic.co.uk/partnerships-awards#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://aintfoundationcic.co.uk/" },
+        { "@type": "ListItem", "position": 2, "name": "Partnerships & Awards", "item": "https://aintfoundationcic.co.uk/partnerships-awards" }
+      ]
+    }
+  ]
+});
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} schema={schema}>
   <HtmlContent html={html} />
 </BaseLayout>

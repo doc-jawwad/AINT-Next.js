@@ -1,11 +1,51 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ContactForm from "../components/ContactForm.astro";
+
+const schema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ContactPage",
+      "@id": "https://aintfoundationcic.co.uk/contact-us#webpage",
+      "url": "https://aintfoundationcic.co.uk/contact-us",
+      "name": "Contact Us | AINT Foundation CIC",
+      "description": "Reach AINT Foundation CIC by email or phone for compassionate, non-judgemental support or information about our services.",
+      "isPartOf": { "@id": "https://aintfoundationcic.co.uk/#website" },
+      "about": { "@id": "https://aintfoundationcic.co.uk/#organization" },
+      "breadcrumb": { "@id": "https://aintfoundationcic.co.uk/contact-us#breadcrumb" },
+      "inLanguage": "en-GB"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://aintfoundationcic.co.uk/#organization",
+      "name": "AINT Foundation CIC",
+      "url": "https://aintfoundationcic.co.uk",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+443000301309",
+        "email": "info@aintfoundationcic.co.uk",
+        "contactType": "customer support",
+        "availableLanguage": "English",
+        "areaServed": "GB"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://aintfoundationcic.co.uk/contact-us#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://aintfoundationcic.co.uk/" },
+        { "@type": "ListItem", "position": 2, "name": "Contact Us", "item": "https://aintfoundationcic.co.uk/contact-us" }
+      ]
+    }
+  ]
+});
 ---
 
 <BaseLayout
   title="Contact Us"
   description="Reach AINT Foundation CIC at info@aintfoundationcic.co.uk for compassionate, non-judgmental support or information about our services."
+  schema={schema}
 >
   <div class="section-wrap" style="padding-top: 48px; padding-bottom: 80px;">
     <div style="max-width: 720px; margin: 0 auto;">
