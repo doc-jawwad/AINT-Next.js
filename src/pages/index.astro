@@ -4,6 +4,186 @@ import HtmlContent from "../components/HtmlContent.astro";
 import { getPageHtml } from "../lib/pages";
 
 const html = getPageHtml("home");
+
+const schema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["Organization", "MedicalOrganization"],
+      "@id": "https://aintfoundationcic.co.uk/#organization",
+      "name": "AINT Foundation CIC",
+      "alternateName": "AINT Foundation",
+      "url": "https://aintfoundationcic.co.uk",
+      "description": "UK Community Interest Company providing trauma-informed therapeutic support, community wellbeing programmes, and practitioner training through the AINT Model — Avery Integrative Non-Judgemental Therapy.",
+      "telephone": "+443000301309",
+      "email": "info@aintfoundationcic.co.uk",
+      "legalName": "AINT Foundation CIC",
+      "identifier": {
+        "@type": "PropertyValue",
+        "name": "Companies House Number",
+        "value": "17193409"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "GB"
+      },
+      "founder": {
+        "@id": "https://aintfoundationcic.co.uk/#dr-trish-avery"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "AINT Foundation CIC Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Private Therapy",
+              "url": "https://aintfoundationcic.co.uk/private-therapy"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Community Support",
+              "url": "https://aintfoundationcic.co.uk/community-support"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Practitioner Training",
+              "url": "https://aintfoundationcic.co.uk/training"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://aintfoundationcic.co.uk/#website",
+      "url": "https://aintfoundationcic.co.uk",
+      "name": "AINT Foundation CIC",
+      "description": "Trauma-informed therapeutic support, community wellbeing training, and practical emotional tools.",
+      "publisher": {
+        "@id": "https://aintfoundationcic.co.uk/#organization"
+      },
+      "inLanguage": "en-GB"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://aintfoundationcic.co.uk/#webpage",
+      "url": "https://aintfoundationcic.co.uk/",
+      "name": "AINT Foundation CIC — Trauma-Informed Support, Training & Community",
+      "description": "Communities heal from the inside out. Trauma-informed therapeutic support, community wellbeing training, and practical emotional tools.",
+      "isPartOf": {
+        "@id": "https://aintfoundationcic.co.uk/#website"
+      },
+      "about": {
+        "@id": "https://aintfoundationcic.co.uk/#organization"
+      },
+      "breadcrumb": {
+        "@id": "https://aintfoundationcic.co.uk/#breadcrumb"
+      },
+      "inLanguage": "en-GB"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://aintfoundationcic.co.uk/#dr-trish-avery",
+      "name": "Dr Trish Avery",
+      "jobTitle": "Founder, AINT Foundation CIC",
+      "description": "Founder of AINT Foundation CIC and developer of the AINT Model — Avery Integrative Non-Judgemental Therapy. Leads the clinical direction and training programmes.",
+      "worksFor": {
+        "@id": "https://aintfoundationcic.co.uk/#organization"
+      },
+      "url": "https://aintfoundationcic.co.uk/about-us"
+    },
+    {
+      "@type": "MedicalTherapy",
+      "@id": "https://aintfoundationcic.co.uk/#private-therapy",
+      "name": "Private Therapy — AINT Foundation CIC",
+      "description": "Trauma-informed private therapy for individuals, couples, children, and groups using the AINT Model. Available in person and online.",
+      "provider": {
+        "@id": "https://aintfoundationcic.co.uk/#organization"
+      },
+      "url": "https://aintfoundationcic.co.uk/private-therapy",
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Individual Therapy Session",
+          "price": "70.00",
+          "priceCurrency": "GBP",
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "price": "70.00",
+            "priceCurrency": "GBP",
+            "unitText": "per session"
+          }
+        },
+        {
+          "@type": "Offer",
+          "name": "Couples Therapy Session",
+          "price": "85.00",
+          "priceCurrency": "GBP"
+        },
+        {
+          "@type": "Offer",
+          "name": "SOS Therapy Session",
+          "price": "80.00",
+          "priceCurrency": "GBP"
+        }
+      ]
+    },
+    {
+      "@type": "Service",
+      "@id": "https://aintfoundationcic.co.uk/#community-support",
+      "name": "Community Support — AINT Foundation CIC",
+      "description": "Affordable and free emotional wellbeing support for individuals who cannot access private therapy. Sessions available free of charge or from £10.",
+      "provider": {
+        "@id": "https://aintfoundationcic.co.uk/#organization"
+      },
+      "url": "https://aintfoundationcic.co.uk/community-support",
+      "offers": {
+        "@type": "Offer",
+        "name": "Community Wellbeing Session",
+        "price": "10.00",
+        "priceCurrency": "GBP",
+        "description": "Subsidised sessions from £10. Free sessions also available."
+      }
+    },
+    {
+      "@type": "EducationalOccupationalProgram",
+      "@id": "https://aintfoundationcic.co.uk/#practitioner-training",
+      "name": "AINT Model Practitioner Training",
+      "description": "Professional training programme teaching the AINT Model (Avery Integrative Non-Judgemental Therapy) to therapists, counsellors, coaches, and practitioners.",
+      "provider": {
+        "@id": "https://aintfoundationcic.co.uk/#organization"
+      },
+      "url": "https://aintfoundationcic.co.uk/training",
+      "educationalProgramMode": "online",
+      "offers": {
+        "@type": "Offer",
+        "name": "Level 1 Practitioner Training",
+        "price": "115.00",
+        "priceCurrency": "GBP"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://aintfoundationcic.co.uk/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://aintfoundationcic.co.uk/"
+        }
+      ]
+    }
+  ]
+});
 ---
 
 <BaseLayout
@@ -11,6 +191,7 @@ const html = getPageHtml("home");
   title="AINT Foundation – Community Interest Company"
   description="Communities heal from the inside out. Trauma-informed therapeutic support, community wellbeing training, and practical emotional tools."
   loadFrontInteractions={true}
+  schema={schema}
 >
   <HtmlContent html={html} />
 </BaseLayout>

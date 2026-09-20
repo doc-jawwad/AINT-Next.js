@@ -2,8 +2,26 @@
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import FloatingCallButton from "../components/FloatingCallButton.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import outfit400 from "@fontsource/outfit/files/outfit-latin-400-normal.woff2?url";
+import outfit700 from "@fontsource/outfit/files/outfit-latin-700-normal.woff2?url";
+import deferredFontsUrl from "../styles/fonts-deferred.css?url";
+import { isNoIndexPath } from "../lib/seo-noindex";
 import "../styles/globals.css";
 import "../styles/aint.css";
+
+/** Paths whose first viewport is a dark / image hero — light breadcrumb ink. */
+const DARK_HERO_PATHS = new Set([
+  "/about",
+  "/about-us",
+  "/collabs",
+  "/partnerships-awards",
+  "/membership",
+  "/aint-books",
+  "/private-therapy",
+  "/training",
+  "/community-support",
+]);
 
 interface Props {
   title?: string;
@@ -11,6 +29,13 @@ interface Props {
   /** When true, use the absolute default title (homepage). */
   absoluteTitle?: boolean;
   loadFrontInteractions?: boolean;
+  noindex?: boolean;
+  /** Final breadcrumb label override (blog posts, custom titles). */
+  breadcrumbLabel?: string;
+  /** Hide breadcrumbs even when a trail would normally show. */
+  hideBreadcrumbs?: boolean;
+  /** JSON-LD schema markup to inject in <head>. Pass a JSON string. */
+  schema?: string;
 }
 
 const DEFAULT_TITLE = "AINT Foundation – Community Interest Company";
@@ -22,7 +47,18 @@ const {
   description = DEFAULT_DESCRIPTION,
   absoluteTitle = false,
   loadFrontInteractions = false,
+  noindex = false,
+  breadcrumbLabel,
+  hideBreadcrumbs = false,
+  schema,
 } = Astro.props;
+
+const pathname = Astro.url.pathname;
+const pathKey = pathname.replace(/\/$/, "") || "/";
+const isBookingPage = noindex || isNoIndexPath(pathname);
+const isHome = pathKey === "/";
+const showBreadcrumbs = !hideBreadcrumbs && !isHome && !isBookingPage;
+const breadcrumbsOnDark = showBreadcrumbs && DARK_HERO_PATHS.has(pathKey);
 
 const pageTitle = absoluteTitle
   ? title || DEFAULT_TITLE
@@ -30,7 +66,7 @@ const pageTitle = absoluteTitle
     ? `${title} | AINT Foundation CIC`
     : DEFAULT_TITLE;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const canonicalURL = new URL(pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -38,9 +74,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {isBookingPage && <meta name="robots" content="noindex, nofollow" />}
+    {isBookingPage && <meta name="googlebot" content="noindex, nofollow" />}
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonicalURL} />
+    {!isBookingPage && <link rel="canonical" href={canonicalURL} />}
     <meta property="og:title" content={absoluteTitle || !title ? "AINT Foundation CIC" : pageTitle} />
     <meta
       property="og:description"
@@ -52,24 +90,53 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_GB" />
-    <meta property="og:url" content={canonicalURL} />
-    <link rel="preconnect" href="https://aintfoundationcic.co.uk" />
+    {!isBookingPage && <meta property="og:url" content={canonicalURL} />}
+    <link rel="preload" href={outfit400} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={outfit700} as="font" type="font/woff2" crossorigin />
+    {
+      isHome && (
+        <>
+          <link
+            rel="preload"
+            as="image"
+            href="/media/2026/05/Flowers-for-Hero-Section-of-AINT-Foundation-CIC-768.webp"
+            media="(max-width: 768px)"
+            fetchpriority="high"
+          />
+          <link
+            rel="preload"
+            as="image"
+            href="/media/2026/05/Flowers-for-Hero-Section-of-AINT-Foundation-CIC-scaled.webp"
+            media="(min-width: 769px)"
+            fetchpriority="high"
+          />
+        </>
+      )
+    }
     <link
-      rel="preload"
-      as="image"
-      href="/media/2026/05/Flowers-for-Hero-Section-of-AINT-Foundation-CIC-scaled.webp"
+      rel="stylesheet"
+      href={deferredFontsUrl}
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link rel="stylesheet" href={deferredFontsUrl} />
+    </noscript>
+    {schema && <script type="application/ld+json" set:html={schema} />}
   </head>
-  <body>
+  <body class:list={[{ "has-breadcrumbs": showBreadcrumbs, "bc-on-dark": breadcrumbsOnDark }]}>
     <Header />
     <main class="site-main">
+      {showBreadcrumbs && <Breadcrumbs currentLabel={breadcrumbLabel || title} />}
       <slot />
     </main>
     <Footer />
     <FloatingCallButton />
-    <script is:inline src="/js/theme.js"></script>
-    {loadFrontInteractions && (
-      <script is:inline src="/js/front-interactions.js"></script>
-    )}
+    <script is:inline src="/js/theme.js" defer></script>
+    {
+      loadFrontInteractions && (
+        <script is:inline src="/js/front-interactions.js" defer></script>
+      )
+    }
   </body>
 </html>
