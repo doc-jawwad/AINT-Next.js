@@ -68,8 +68,9 @@
           const bars = ratingWrap.querySelectorAll(".r-bar-fill");
           bars.forEach((bar, idx) => {
             const width = bar.dataset.width || "0%";
+            const ratio = Math.min(Math.max(parseFloat(width) / 100, 0), 1);
             window.setTimeout(() => {
-              bar.style.width = width;
+              bar.style.transform = "scaleX(" + ratio + ")";
             }, idx * 120);
           });
           ratingObserver.unobserve(ratingWrap);
@@ -89,14 +90,23 @@
     const cards = Array.from(track.children);
     let index = 0;
     let autoplay;
+    let cachedCardWidth = 0;
+    let cachedGap = 0;
+    let cachedVisible = 3;
 
-    const getVisibleCount = () => {
-      if (window.innerWidth <= 768) return 1;
-      if (window.innerWidth <= 1100) return 2;
-      return 3;
+    const measureLayout = () => {
+      if (window.innerWidth <= 768) cachedVisible = 1;
+      else if (window.innerWidth <= 1100) cachedVisible = 2;
+      else cachedVisible = 3;
+
+      const card = cards[0];
+      if (!card) return;
+      const cardStyles = window.getComputedStyle(track);
+      cachedGap = parseFloat(cardStyles.columnGap || cardStyles.gap || "0") || 0;
+      cachedCardWidth = card.getBoundingClientRect().width;
     };
 
-    const getPageCount = () => Math.max(cards.length - getVisibleCount() + 1, 1);
+    const getPageCount = () => Math.max(cards.length - cachedVisible + 1, 1);
 
     const renderDots = () => {
       dotsWrap.innerHTML = "";
@@ -117,11 +127,8 @@
     const update = () => {
       const maxIndex = getPageCount() - 1;
       index = Math.max(0, Math.min(index, maxIndex));
-      const card = cards[0];
-      if (!card) return;
-      const cardStyles = window.getComputedStyle(track);
-      const gap = parseFloat(cardStyles.columnGap || cardStyles.gap || "0");
-      const shift = index * (card.offsetWidth + gap);
+      if (!cachedCardWidth) measureLayout();
+      const shift = index * (cachedCardWidth + cachedGap);
       track.style.transform = "translateX(-" + shift + "px)";
       prevBtn.disabled = index === 0;
       nextBtn.disabled = index === maxIndex;
@@ -164,10 +171,12 @@
     trackWrap.addEventListener("mouseleave", startAutoplay);
 
     window.addEventListener("resize", () => {
+      measureLayout();
       renderDots();
       update();
-    });
+    }, { passive: true });
 
+    measureLayout();
     renderDots();
     update();
     startAutoplay();

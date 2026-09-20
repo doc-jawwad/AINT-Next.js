@@ -10,6 +10,6 @@ const title = staticPageTitle(slug);
 const description = staticPageDescription(slug);
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} noindex={true}>
   <HtmlContent html={html} />
 </BaseLayout>

@@ -580,17 +580,35 @@
     });
   };
 
+  let scrollTicking = false;
+  let maxScroll = 0;
+  const measureMaxScroll = () => {
+    maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 0);
+  };
+  measureMaxScroll();
+  window.addEventListener("resize", measureMaxScroll, { passive: true });
+  if (typeof ResizeObserver !== "undefined") {
+    const ro = new ResizeObserver(measureMaxScroll);
+    ro.observe(document.documentElement);
+  }
+
   function onScroll() {
-    if (nav) {
-      nav.classList.toggle("scrolled", window.scrollY > 60);
-    }
-    if (progressBar) {
-      const max = document.body.scrollHeight - window.innerHeight;
-      const percent = max > 0 ? (window.scrollY / max) * 100 : 0;
-      progressBar.style.width = percent + "%";
-    }
-    if (backToTop) {
-      backToTop.classList.toggle("vis", window.scrollY > 400);
+    if (!scrollTicking) {
+      window.requestAnimationFrame(() => {
+        const y = window.scrollY || window.pageYOffset || 0;
+        if (nav) {
+          nav.classList.toggle("scrolled", y > 60);
+        }
+        if (progressBar) {
+          const ratio = maxScroll > 0 ? Math.min(Math.max(y / maxScroll, 0), 1) : 0;
+          progressBar.style.transform = "scaleX(" + ratio + ")";
+        }
+        if (backToTop) {
+          backToTop.classList.toggle("vis", y > 400);
+        }
+        scrollTicking = false;
+      });
+      scrollTicking = true;
     }
   }
 

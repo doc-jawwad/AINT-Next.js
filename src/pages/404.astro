@@ -1,0 +1,229 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Page Not Found"
+  description="This page could not be found. Return home or reach AINT Foundation CIC for trauma-informed support and training."
+  hideBreadcrumbs={true}
+  noindex={true}
+>
+  <section class="nf" aria-labelledby="nf-title">
+    <div class="nf-bg" aria-hidden="true"></div>
+    <div class="nf-veil" aria-hidden="true"></div>
+    <div class="nf-glow" aria-hidden="true"></div>
+
+    <div class="nf-inner">
+      <p class="nf-brand">AINT Foundation CIC</p>
+      <p class="nf-code" aria-hidden="true">404</p>
+      <h1 id="nf-title" class="nf-title">This path isn’t here</h1>
+      <p class="nf-text">
+        The page you’re looking for may have moved, or it never existed.
+        You’re still in the right place to find support.
+      </p>
+      <div class="nf-actions">
+        <a class="btn-p" href="/">Return home</a>
+        <a class="btn-s nf-btn-light" href="/contact-us">Contact us</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf {
+    position: relative;
+    min-height: calc(100svh - 0px);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 132px 80px 100px;
+    overflow: hidden;
+    color: #fff;
+  }
+
+  .nf-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url("/media/2026/05/Flowers-for-Hero-Section-of-AINT-Foundation-CIC-768.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transform: scale(1.04);
+    animation: nf-drift 28s ease-in-out infinite alternate;
+  }
+
+  @media (min-width: 769px) {
+    .nf-bg {
+      background-image: url("/media/2026/05/Flowers-for-Hero-Section-of-AINT-Foundation-CIC-scaled.webp");
+    }
+  }
+
+  .nf-veil {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        118deg,
+        rgba(24, 36, 28, 0.86) 0%,
+        rgba(24, 36, 28, 0.62) 46%,
+        rgba(24, 36, 28, 0.34) 100%
+      );
+  }
+
+  .nf-glow {
+    position: absolute;
+    width: min(52vw, 520px);
+    height: min(52vw, 520px);
+    left: -8%;
+    bottom: -18%;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgba(201, 168, 76, 0.28) 0%,
+      rgba(201, 168, 76, 0) 70%
+    );
+    filter: blur(8px);
+    animation: nf-breathe 6.5s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  .nf-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    animation: nf-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .nf-brand {
+    font-family: var(--font-cormorant), "Cormorant Garamond", serif;
+    font-size: clamp(28px, 3.4vw, 42px);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    color: #fff;
+    margin: 0 0 6px;
+    line-height: 1.15;
+  }
+
+  .nf-code {
+    font-family: var(--font-cormorant), "Cormorant Garamond", serif;
+    font-size: clamp(64px, 10vw, 110px);
+    font-weight: 300;
+    line-height: 0.9;
+    color: rgba(240, 223, 160, 0.94);
+    margin: 0 0 6px;
+    letter-spacing: -0.03em;
+    animation: nf-soft 5s ease-in-out infinite;
+  }
+
+  .nf-title {
+    font-family: var(--font-playfair), "Playfair Display", serif;
+    font-size: clamp(20px, 2.4vw, 28px);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.25;
+    color: var(--gold-l);
+    margin: 0 0 18px;
+  }
+
+  .nf-text {
+    font-size: clamp(15px, 1.4vw, 18px);
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.88);
+    max-width: 32em;
+    margin: 0 0 30px;
+  }
+
+  .nf-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .nf-btn-light {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.45);
+  }
+
+  .nf-btn-light:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: var(--gold-l);
+    color: #fff;
+  }
+
+  @keyframes nf-rise {
+    from {
+      opacity: 0;
+      transform: translateY(22px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes nf-soft {
+    0%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.92;
+    }
+    50% {
+      transform: translateY(-6px);
+      opacity: 1;
+    }
+  }
+
+  @keyframes nf-breathe {
+    0%,
+    100% {
+      opacity: 0.55;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.95;
+      transform: scale(1.08);
+    }
+  }
+
+  @keyframes nf-drift {
+    from {
+      transform: scale(1.04) translate3d(0, 0, 0);
+    }
+    to {
+      transform: scale(1.08) translate3d(-1.2%, -0.8%, 0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .nf {
+      padding: 112px 24px 96px;
+      min-height: 100svh;
+    }
+
+    .nf-code {
+      font-size: clamp(56px, 18vw, 80px);
+    }
+
+    .nf-actions {
+      width: 100%;
+    }
+
+    .nf-actions :global(.btn-p),
+    .nf-actions :global(.btn-s) {
+      flex: 1 1 auto;
+      justify-content: center;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nf-bg,
+    .nf-glow,
+    .nf-code,
+    .nf-inner {
+      animation: none;
+    }
+  }
+</style>

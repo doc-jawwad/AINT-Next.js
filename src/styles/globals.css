@@ -1,27 +1,15 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
-@import "@fontsource/outfit/300.css";
-@import "@fontsource/outfit/400.css";
-@import "@fontsource/outfit/500.css";
-@import "@fontsource/outfit/600.css";
-@import "@fontsource/outfit/700.css";
-
-@import "@fontsource/cormorant-garamond/300.css";
-@import "@fontsource/cormorant-garamond/400.css";
-@import "@fontsource/cormorant-garamond/500.css";
-@import "@fontsource/cormorant-garamond/600.css";
-@import "@fontsource/cormorant-garamond/300-italic.css";
-@import "@fontsource/cormorant-garamond/400-italic.css";
-@import "@fontsource/cormorant-garamond/500-italic.css";
-@import "@fontsource/cormorant-garamond/600-italic.css";
-
-@import "@fontsource/playfair-display/400-italic.css";
-@import "@fontsource/playfair-display/500-italic.css";
+/* Critical path fonts only — Cormorant/Playfair load deferred for mobile LCP */
+@import "@fontsource/outfit/latin-400.css";
+@import "@fontsource/outfit/latin-500.css";
+@import "@fontsource/outfit/latin-600.css";
+@import "@fontsource/outfit/latin-700.css";
 
 :root {
   --font-outfit: "Outfit", sans-serif;
-  --font-cormorant: "Cormorant Garamond", serif;
-  --font-playfair: "Playfair Display", serif;
+  --font-cormorant: "Cormorant Garamond", "Georgia", "Times New Roman", serif;
+  --font-playfair: "Playfair Display", "Georgia", "Times New Roman", serif;
 }
 
 /* Theme fonts — map CSS variables into the existing design system */
@@ -29,9 +17,14 @@ body {
   font-family: var(--font-outfit);
 }
 
+/* Logo uses Outfit (preloaded) so LCP text paints without waiting on Cormorant */
+.logo-name {
+  font-family: var(--font-outfit);
+  font-weight: 700;
+}
+
 h1.hero-title,
 h2.s-title,
-.logo-name,
 .fp-meaning-title,
 .fp-meaning-letter,
 .hero-aint-letter,

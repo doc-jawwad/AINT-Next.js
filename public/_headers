@@ -1,0 +1,48 @@
+# Cloudflare Pages — block indexing of booking flows
+/book
+  X-Robots-Tag: noindex, nofollow
+
+/book/
+  X-Robots-Tag: noindex, nofollow
+
+/book-private
+  X-Robots-Tag: noindex, nofollow
+
+/book-private/
+  X-Robots-Tag: noindex, nofollow
+
+/book-individual
+  X-Robots-Tag: noindex, nofollow
+
+/book-individual/
+  X-Robots-Tag: noindex, nofollow
+
+/book-couples
+  X-Robots-Tag: noindex, nofollow
+
+/book-couples/
+  X-Robots-Tag: noindex, nofollow
+
+/book-children
+  X-Robots-Tag: noindex, nofollow
+
+/book-children/
+  X-Robots-Tag: noindex, nofollow
+
+/book-sos
+  X-Robots-Tag: noindex, nofollow
+
+/book-sos/
+  X-Robots-Tag: noindex, nofollow
+
+/book-group
+  X-Robots-Tag: noindex, nofollow
+
+/book-group/
+  X-Robots-Tag: noindex, nofollow
+
+/booking
+  X-Robots-Tag: noindex, nofollow
+
+/booking/
+  X-Robots-Tag: noindex, nofollow

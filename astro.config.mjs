@@ -1,12 +1,17 @@
 import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
+import { isNoIndexSitemapUrl } from "./src/lib/seo-noindex.ts";
 
 export default defineConfig({
   site: "https://aintfoundationcic.co.uk",
   output: "static",
   trailingSlash: "never",
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      filter: (page) => !isNoIndexSitemapUrl(page),
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },

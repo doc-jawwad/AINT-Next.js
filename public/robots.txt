@@ -85,4 +85,4 @@ Disallow: /book-group
 Disallow: /booking
 Allow: /
 
-Sitemap: https://aintfoundationcic.co.uk/sitemap.xml
+Sitemap: https://aintfoundationcic.co.uk/sitemap-index.xml
