@@ -86,3 +86,4 @@ Disallow: /booking
 Allow: /
 
 Sitemap: https://aintfoundationcic.co.uk/sitemap-index.xml
+Sitemap: https://aintfoundationcic.co.uk/sitemap-0.xml
