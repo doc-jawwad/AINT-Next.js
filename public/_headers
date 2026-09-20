@@ -46,3 +46,29 @@
 
 /booking/
   X-Robots-Tag: noindex, nofollow
+
+# HTML — short cache so content updates propagate (overridden below for assets)
+/
+  Cache-Control: public, max-age=600, must-revalidate
+
+/*
+  Cache-Control: public, max-age=600, must-revalidate
+
+# Hashed Astro build assets — immutable long cache (must come after /*)
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Media (images) — long cache; replace file or change path to bust
+/media/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Public JS helpers
+/js/*
+  Cache-Control: public, max-age=604800
+
+# Fonts
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.woff
+  Cache-Control: public, max-age=31536000, immutable

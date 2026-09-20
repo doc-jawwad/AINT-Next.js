@@ -1,10 +1,13 @@
 ---
+import { optimizeHtmlImages } from "../lib/optimize-images";
+
 interface Props {
   html: string;
   class?: string;
 }
 
 const { html, class: className } = Astro.props;
+const optimized = optimizeHtmlImages(html);
 ---
 
-<div class={className} set:html={html} />
+<div class={className} set:html={optimized} />

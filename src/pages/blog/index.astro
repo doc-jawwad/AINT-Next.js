@@ -10,8 +10,8 @@ function stripHtml(html: string) {
 ---
 
 <BaseLayout
-  title="Blog"
-  description="Thoughts on healing, trauma-informed care, and community wellbeing from AINT Foundation CIC."
+  title="Articles & Insights"
+  description="Trauma-informed insights, wellbeing guides and professional resources from AINT Foundation CIC and Dr Trish Avery."
 >
   <header class="page-header">
     <div class="s-kicker" style="justify-content: center;">Resources & Insights</div>
@@ -35,6 +35,7 @@ function stripHtml(html: string) {
                   src={post.featuredImage.url}
                   alt={post.featuredImage.alt || post.title}
                   loading="lazy"
+                  decoding="async"
                 />
               ) : (
                 <div class="blog-card-img" />

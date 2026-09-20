@@ -6,7 +6,7 @@ import { staticPageTitle, staticPageDescription } from "../../lib/page-meta";
 
 const slug = "about";
 const html = getPageHtml(slug);
-const title = "About Us";
+const title = staticPageTitle(slug);
 const description = staticPageDescription(slug);
 
 const schema = JSON.stringify({
@@ -44,6 +44,6 @@ const schema = JSON.stringify({
 });
 ---
 
-<BaseLayout title={title} description={description} schema={schema}>
+<BaseLayout absoluteTitle={true} title={title} description={description} schema={schema}>
   <HtmlContent html={html} />
 </BaseLayout>
